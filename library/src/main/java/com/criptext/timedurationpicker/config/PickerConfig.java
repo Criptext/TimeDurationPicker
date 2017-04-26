@@ -13,6 +13,10 @@ public class PickerConfig {
     public Type mType = DefaultConfig.TYPE;
     public int mThemeColor = DefaultConfig.COLOR;
 
+    public int minuteStep = DefaultConfig.STEP;
+    public int hourStep = DefaultConfig.STEP;
+    public int dayStep = DefaultConfig.STEP;
+
     public String mCancelString = DefaultConfig.CANCEL;
     public String mSureString = DefaultConfig.SURE;
     public String mTitleString = DefaultConfig.TITLE;
@@ -29,6 +33,9 @@ public class PickerConfig {
     public String mHour = DefaultConfig.HOUR;
     public String mMinute = DefaultConfig.MINUTE;
 
+
+    public int minDay = DefaultConfig.MIN_DAY;
+    public int maxDay = DefaultConfig.MAX_DAY;
     /**
      * The min timeMillseconds
      */

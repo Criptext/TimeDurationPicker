@@ -46,6 +46,13 @@
         android:text="@string/hour_minute"
         />
 
+    <Button
+        android:id="@+id/btn_day_hour_minute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/day_hour_minute"
+        />
+
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="match_parent"

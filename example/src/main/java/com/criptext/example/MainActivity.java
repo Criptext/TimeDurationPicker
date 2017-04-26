@@ -1,6 +1,7 @@
 package com.criptext.example;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TimeDurationPicker mDialogYearMonth;
     TimeDurationPicker mDialogYearMonthDay;
     TimeDurationPicker mDialogMonthDayHourMinute;
+    TimeDurationPicker mDialogDayHourMinute;
     TimeDurationPicker mDialogHourMinute;
     TextView mTvTime;
 
@@ -75,6 +77,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setType(Type.HOURS_MINS)
                 .setCallBack(this)
                 .build();
+        mDialogDayHourMinute = new TimeDurationPicker.Builder()
+                .setType(Type.DAY_HOUR_MIN)
+                .setHourText(" Hours")
+                .setMinuteText(" Minutes")
+                .setDayText(" Days")
+                .setCancelStringId("Cancel")
+                .setSureStringId("Set")
+                .setTitleStringId("Expiration Timer")
+                .setThemeColor(Color.WHITE)
+                .setToolBarTextColor(Color.BLACK)
+                .setCallBack(this)
+                .setMaxDay(24)
+                .build();
     }
 
     void initView() {
@@ -83,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn_year_month).setOnClickListener(this);
         findViewById(R.id.btn_month_day_hour_minute).setOnClickListener(this);
         findViewById(R.id.btn_hour_minute).setOnClickListener(this);
+        findViewById(R.id.btn_day_hour_minute).setOnClickListener(this);
 
         mTvTime = (TextView) findViewById(R.id.tv_time);
     }
@@ -104,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_hour_minute:
                 mDialogHourMinute.show(getSupportFragmentManager(), "hour_minute");
+                break;
+            case R.id.btn_day_hour_minute:
+                mDialogDayHourMinute.show(getSupportFragmentManager(), "day_hour_minute");
                 break;
         }
     }

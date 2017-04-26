@@ -7,6 +7,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.criptext.timedurationpicker.adapters.NumericWheelAdapter;
+import com.criptext.timedurationpicker.config.DefaultConfig;
 import com.criptext.timedurationpicker.config.PickerConfig;
 import com.criptext.timedurationpicker.data.PickerConstants;
 import com.criptext.timedurationpicker.data.source.TimeRepository;
@@ -87,6 +88,9 @@ public class TimeWheel {
             case YEAR_MONTH:
                 Utils.hideViews(day, hour, minute);
                 break;
+            case DAY_HOUR_MIN:
+                Utils.hideViews(year, month);
+                break;
             case MONTH_DAY_HOUR_MIN:
                 Utils.hideViews(year);
                 break;
@@ -117,131 +121,76 @@ public class TimeWheel {
         mYearAdapter = new NumericWheelAdapter(mContext, minYear, maxYear, PickerConstants.FORMAT, mPickerConfig.mYear);
         mYearAdapter.setConfig(mPickerConfig);
         year.setViewAdapter(mYearAdapter);
-        year.setCurrentItem(mRepository.getDefaultCalendar().year - minYear);
     }
 
     void initMonth() {
         updateMonths();
-        int curYear = getCurrentYear();
-        int minMonth = mRepository.getMinMonth(curYear);
-        month.setCurrentItem(mRepository.getDefaultCalendar().month - minMonth);
         month.setCyclic(mPickerConfig.cyclic);
     }
 
     void initDay() {
         updateDays();
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-
-        int minDay = mRepository.getMinDay(curYear, curMonth);
-        day.setCurrentItem(mRepository.getDefaultCalendar().day - minDay);
         day.setCyclic(mPickerConfig.cyclic);
     }
 
     void initHour() {
         updateHours();
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-        int curDay = getCurrentDay();
-
-        int minHour = mRepository.getMinHour(curYear, curMonth, curDay);
-        hour.setCurrentItem(mRepository.getDefaultCalendar().hour - minHour);
         hour.setCyclic(mPickerConfig.cyclic);
     }
 
     void initMinute() {
         updateMinutes();
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-        int curDay = getCurrentDay();
-        int curHour = getCurrentHour();
-        int minMinute = mRepository.getMinMinute(curYear, curMonth, curDay, curHour);
-
-        minute.setCurrentItem(mRepository.getDefaultCalendar().minute - minMinute);
         minute.setCyclic(mPickerConfig.cyclic);
-
     }
 
     void updateMonths() {
         if (month.getVisibility() == View.GONE)
             return;
 
-        int curYear = getCurrentYear();
-        int minMonth = mRepository.getMinMonth(curYear);
-        int maxMonth = mRepository.getMaxMonth(curYear);
+        int minMonth = PickerConstants.MIN_MONTH;
+        int maxMonth = PickerConstants.MAX_MONTH;
         mMonthAdapter = new NumericWheelAdapter(mContext, minMonth, maxMonth, PickerConstants.FORMAT, mPickerConfig.mMonth);
         mMonthAdapter.setConfig(mPickerConfig);
         month.setViewAdapter(mMonthAdapter);
-
-        if (mRepository.isMinYear(curYear)) {
-            month.setCurrentItem(0, false);
-        }
     }
 
     void updateDays() {
         if (day.getVisibility() == View.GONE)
             return;
 
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + year.getCurrentItem());
-        calendar.set(Calendar.MONTH, curMonth);
-
-        int maxDay = mRepository.getMaxDay(curYear, curMonth);
-        int minDay = mRepository.getMinDay(curYear, curMonth);
-        mDayAdapter = new NumericWheelAdapter(mContext, minDay, maxDay, PickerConstants.FORMAT, mPickerConfig.mDay);
+        int maxDay = mPickerConfig.maxDay;
+        int minDay = mPickerConfig.minDay;
+        mDayAdapter = new NumericWheelAdapter(mContext, minDay, maxDay, mPickerConfig.dayStep,
+                PickerConstants.FORMAT, mPickerConfig.mDay);
         mDayAdapter.setConfig(mPickerConfig);
         day.setViewAdapter(mDayAdapter);
-
-        if (mRepository.isMinMonth(curYear, curMonth)) {
-            day.setCurrentItem(0, true);
-        }
-
-        int dayCount = mDayAdapter.getItemsCount();
-        if (day.getCurrentItem() >= dayCount) {
-            day.setCurrentItem(dayCount - 1, true);
-        }
     }
 
     void updateHours() {
         if (hour.getVisibility() == View.GONE)
             return;
 
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-        int curDay = getCurrentDay();
+        int minHour = PickerConstants.MIN_HOUR;
+        int maxHour = PickerConstants.MAX_HOUR;
 
-        int minHour = mRepository.getMinHour(curYear, curMonth, curDay);
-        int maxHour = mRepository.getMaxHour(curYear, curMonth, curDay);
-
-        mHourAdapter = new NumericWheelAdapter(mContext, minHour, maxHour, PickerConstants.FORMAT, mPickerConfig.mHour);
+        mHourAdapter = new NumericWheelAdapter(mContext, minHour, maxHour, mPickerConfig.hourStep,
+                PickerConstants.FORMAT, mPickerConfig.mHour);
         mHourAdapter.setConfig(mPickerConfig);
         hour.setViewAdapter(mHourAdapter);
-
-        if (mRepository.isMinDay(curYear, curMonth, curDay))
-            hour.setCurrentItem(0, false);
     }
 
     void updateMinutes() {
         if (minute.getVisibility() == View.GONE)
             return;
 
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-        int curDay = getCurrentDay();
-        int curHour = getCurrentHour();
+        int minMinute = PickerConstants.MIN_MINUTE;
+        int maxMinute = PickerConstants.MAX_MINUTE;
 
-        int minMinute = mRepository.getMinMinute(curYear, curMonth, curDay, curHour);
-        int maxMinute = mRepository.getMaxMinute(curYear, curMonth, curDay, curHour);
-
-        mMinuteAdapter = new NumericWheelAdapter(mContext, minMinute, maxMinute, PickerConstants.FORMAT, mPickerConfig.mMinute);
+        mMinuteAdapter = new NumericWheelAdapter(mContext, minMinute, maxMinute, mPickerConfig.minuteStep,
+                PickerConstants.FORMAT, mPickerConfig.mMinute);
         mMinuteAdapter.setConfig(mPickerConfig);
         minute.setViewAdapter(mMinuteAdapter);
-
-        if (mRepository.isMinHour(curYear, curMonth, curDay, curHour))
-            minute.setCurrentItem(0, false);
     }
 
     public int getCurrentYear() {

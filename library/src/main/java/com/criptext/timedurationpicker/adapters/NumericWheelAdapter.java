@@ -35,9 +35,14 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
      */
     private static final int DEFAULT_MIN_VALUE = 0;
 
+    /**
+     * The default step
+     */
+    private static final int DEFAULT_STEP = 0;
     // Values
     private int minValue;
     private int maxValue;
+    private int step;
 
     // format
     private String format;
@@ -91,13 +96,32 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.format = format;
+        this.step = 1;
+        this.unit = unit;
+    }
+/**
+     * Constructor
+     *
+     * @param context  the current context
+     * @param minValue the wheel min value
+     * @param maxValue the wheel max value
+     * @param step     the wheel step
+     * @param format   the format string
+     * @param unit     the wheel unit value
+     */
+    public NumericWheelAdapter(Context context, int minValue, int maxValue, int step, String format, String unit) {
+        super(context);
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.format = format;
+        this.step = step;
         this.unit = unit;
     }
 
     @Override
     public CharSequence getItemText(int index) {
         if (index >= 0 && index < getItemsCount()) {
-            int value = minValue + index;
+            int value = minValue + index * step;
             String text = !TextUtils.isEmpty(format) ? String.format(format, value) : Integer.toString(value);
             text = TextUtils.isEmpty(unit) ? text : text + unit;
 
@@ -108,7 +132,7 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
 
     @Override
     public int getItemsCount() {
-        return maxValue - minValue + 1;
+        return (maxValue - minValue + 1) / step;
     }
 
 

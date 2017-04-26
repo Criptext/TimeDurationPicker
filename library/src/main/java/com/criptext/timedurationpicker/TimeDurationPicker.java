@@ -79,8 +79,11 @@ public Dialog onCreateDialog(Bundle savedInstanceState) {
         View toolbar = view.findViewById(R.id.toolbar);
 
         title.setText(mPickerConfig.mTitleString);
+        title.setTextColor(mPickerConfig.mToolBarTVColor);
         cancel.setText(mPickerConfig.mCancelString);
+        cancel.setTextColor(mPickerConfig.mToolBarTVColor);
         sure.setText(mPickerConfig.mSureString);
+        sure.setTextColor(mPickerConfig.mToolBarTVColor);
         toolbar.setBackgroundColor(mPickerConfig.mThemeColor);
 
         mTimeWheel = new TimeWheel(view, mPickerConfig);
@@ -227,6 +230,31 @@ public static class Builder {
 
     public Builder setMinuteText(String minute){
         mPickerConfig.mMinute = minute;
+        return this;
+    }
+
+    public Builder setDayStep(int dayStep){
+        mPickerConfig.dayStep = dayStep;
+        return this;
+    }
+
+    public Builder setHourStep(int hourStep){
+        mPickerConfig.hourStep = hourStep;
+        return this;
+    }
+
+    public Builder setMinuteStep(int minuteStep){
+        mPickerConfig.minuteStep = minuteStep;
+        return this;
+    }
+
+    public Builder setMinDay(int minDay) {
+        mPickerConfig.minDay = minDay;
+        return this;
+    }
+
+    public Builder setMaxDay(int maxDay) {
+        mPickerConfig.maxDay = maxDay;
         return this;
     }
 
