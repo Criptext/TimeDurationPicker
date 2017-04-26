@@ -101,35 +101,16 @@ public void onClick(View v) {
         }
         }
 
-    /*
-    * @desc This method returns the current milliseconds. If current milliseconds is not set,
-    *       this will return the system milliseconds.
-    * @param none
-    * @return long - the current milliseconds.
-    */
 public long getCurrentMillSeconds() {
-        if (mCurrentMillSeconds == 0)
-        return System.currentTimeMillis();
-
         return mCurrentMillSeconds;
         }
 
     /*
-    * @desc This method is called when onClick method is invoked by sure button. A Calendar instance is created and
-    *       initialized.
+    * @desc This method is called when onClick method is invoked by sure button.
     * @param none
     * @return none
     */
         void sureClicked() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-
-        calendar.set(Calendar.YEAR, mTimeWheel.getCurrentYear());
-        calendar.set(Calendar.MONTH, mTimeWheel.getCurrentMonth() - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, mTimeWheel.getCurrentDay());
-        calendar.set(Calendar.HOUR_OF_DAY, mTimeWheel.getCurrentHour());
-        calendar.set(Calendar.MINUTE, mTimeWheel.getCurrentMinute());
-
         final TimeDuration timeDuration = new TimeDuration();
         mCurrentMillSeconds = timeDuration.toMiliseconds(mTimeWheel.getCurrentYear(),
                 mTimeWheel.getCurrentMonth(), mTimeWheel.getCurrentDay(), mTimeWheel.getCurrentHour(),
@@ -139,6 +120,10 @@ public long getCurrentMillSeconds() {
         }
         dismiss();
         }
+
+    public void setCallBack(OnDateSetListener listener) {
+        mPickerConfig.mCallBack = listener;
+    }
 
 public static class Builder {
     PickerConfig mPickerConfig;
