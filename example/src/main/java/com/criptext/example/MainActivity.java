@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setToolBarTextColor(Color.BLACK)
                 .setCallBack(this)
                 .setMaxDay(24)
+                .setWheelItemSelectorTextSize(16)
                 .build();
     }
 

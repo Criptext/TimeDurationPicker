@@ -64,6 +64,7 @@ public class WheelView extends View {
     // Cyclic
     boolean isCyclic = false;
     int defaultColor, selectorColor;
+    float normalTextSize, selectorTextSize;
     // Wheel Values
     private int currentItem = 0;
     // Count of visible items
@@ -205,6 +206,9 @@ public class WheelView extends View {
 
         defaultColor = config.mWheelTVNormalColor;
         selectorColor = config.mWheelTVSelectorColor;
+
+        normalTextSize = config.mWheelTVSize;
+        selectorTextSize = config.mWheelTVSelectorSize;
     }
 
 
@@ -890,8 +894,10 @@ public class WheelView extends View {
         TextView textView = (TextView) view;
         if (index == currentItem) {
             textView.setTextColor(selectorColor);
+            textView.setTextSize(selectorTextSize);
         } else {
             textView.setTextColor(defaultColor);
+            textView.setTextSize(normalTextSize);
         }
     }
 

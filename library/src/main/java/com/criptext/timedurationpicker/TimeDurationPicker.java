@@ -188,6 +188,11 @@ public static class Builder {
         return this;
     }
 
+    public Builder setWheelItemSelectorTextSize(int size) {
+        mPickerConfig.mWheelTVSelectorSize = size;
+        return this;
+    }
+
     public Builder setCyclic(boolean cyclic) {
         mPickerConfig.cyclic = cyclic;
         return this;
