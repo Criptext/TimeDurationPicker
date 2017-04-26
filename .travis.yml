@@ -4,6 +4,8 @@ sudo: true
 
 android:
   components:
+    - tools
+    - platform-tools
     - extra-android-m2repository
     - build-tools-25.0.2
     - android-25
