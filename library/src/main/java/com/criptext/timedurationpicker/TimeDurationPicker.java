@@ -18,6 +18,7 @@ import com.criptext.timedurationpicker.config.PickerConfig;
 import com.criptext.timedurationpicker.data.Type;
 import com.criptext.timedurationpicker.data.WheelCalendar;
 import com.criptext.timedurationpicker.listener.OnDateSetListener;
+import com.criptext.timedurationpicker.utils.TimeDuration;
 
 import java.util.Calendar;
 
@@ -129,7 +130,10 @@ public long getCurrentMillSeconds() {
         calendar.set(Calendar.HOUR_OF_DAY, mTimeWheel.getCurrentHour());
         calendar.set(Calendar.MINUTE, mTimeWheel.getCurrentMinute());
 
-        mCurrentMillSeconds = calendar.getTimeInMillis();
+        final TimeDuration timeDuration = new TimeDuration();
+        mCurrentMillSeconds = timeDuration.toMiliseconds(mTimeWheel.getCurrentYear(),
+                mTimeWheel.getCurrentMonth(), mTimeWheel.getCurrentDay(), mTimeWheel.getCurrentHour(),
+                mTimeWheel.getCurrentMinute());
         if (mPickerConfig.mCallBack != null) {
         mPickerConfig.mCallBack.onDateSet(this, mCurrentMillSeconds);
         }

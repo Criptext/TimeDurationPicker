@@ -194,34 +194,23 @@ public class TimeWheel {
     }
 
     public int getCurrentYear() {
-        return year.getCurrentItem() + mRepository.getMinYear();
+        return year.getCurrentItem();
     }
 
     public int getCurrentMonth() {
-        int curYear = getCurrentYear();
-        return month.getCurrentItem() + +mRepository.getMinMonth(curYear);
+        return month.getCurrentItem();
     }
 
     public int getCurrentDay() {
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-        return day.getCurrentItem() + mRepository.getMinDay(curYear, curMonth);
+        return day.getCurrentItem();
     }
 
     public int getCurrentHour() {
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-        int curDay = getCurrentDay();
-        return hour.getCurrentItem() + mRepository.getMinHour(curYear, curMonth, curDay);
+        return hour.getCurrentItem();
     }
 
     public int getCurrentMinute() {
-        int curYear = getCurrentYear();
-        int curMonth = getCurrentMonth();
-        int curDay = getCurrentDay();
-        int curHour = getCurrentHour();
-
-        return minute.getCurrentItem() + mRepository.getMinMinute(curYear, curMonth, curDay, curHour);
+        return minute.getCurrentItem();
     }
 
 

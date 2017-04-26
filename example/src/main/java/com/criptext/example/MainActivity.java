@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -130,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void onDateSet(TimeDurationPicker timePickerDialog, long millseconds) {
-        String text = getDateToString(millseconds);
+    public void onDateSet(TimeDurationPicker timePickerDialog, long miliseconds) {
+        final String text = "Duration: " + miliseconds + "ms.";
         mTvTime.setText(text);
     }
 
