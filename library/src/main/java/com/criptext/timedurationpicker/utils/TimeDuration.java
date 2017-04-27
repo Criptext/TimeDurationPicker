@@ -19,4 +19,19 @@ public class TimeDuration {
         + hours * hoursInMS
         + minutes * minutesInMS;
     }
+
+    public String milisToString(long milis, String daysLabel, String hoursLabel, String minutesLabel) {
+        long numberOfDays = milis / daysInMS;
+        long residuo = milis % daysInMS;
+        long numberOfHours = residuo / hoursInMS;
+        residuo = residuo % hoursInMS;
+        long numberOfMinutes = residuo / minutesInMS;
+
+        String numberOfDaysStr = numberOfDays == 0 ? "00" : "" + numberOfDays;
+        String numberOfHoursStr = numberOfHours == 0 ? "00" : "" + numberOfHours;
+        String numberOfMinutesStr = numberOfMinutes == 0 ? "00" : "" + numberOfMinutes;
+
+        return numberOfDaysStr + " " + daysLabel + " " + numberOfHoursStr + " " + hoursLabel + " "
+                + numberOfMinutesStr + " " + minutesLabel;
+    }
 }
