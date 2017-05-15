@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCancelStringId("Cancel")
                 .setSureStringId("Set")
                 .setTitleStringId("Expiration Timer")
+                .setExpirationOptionLabels("Timer begins once the email is:", "Opened", "Sent")
                 .setThemeColor(Color.WHITE)
                 .setToolBarTextColor(Color.BLACK)
                 .setCallBack(this)
@@ -131,8 +132,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void onDateSet(TimeDurationPicker timePickerDialog, long miliseconds) {
-        final String text = "Duration: " + miliseconds + "ms.";
+    public void onDateSet(TimeDurationPicker timePickerDialog, long miliseconds, boolean choseRightOption) {
+        final String opt = choseRightOption ? "Sent" : "Opened";
+        final String text = "Duration: " + miliseconds + "ms. " + opt;
         mTvTime.setText(text);
     }
 

@@ -7,5 +7,5 @@ import com.criptext.timedurationpicker.TimeDurationPicker;
  */
 public interface OnDateSetListener {
 
-    void onDateSet(TimeDurationPicker timePickerView, long millseconds);
+    void onDateSet(TimeDurationPicker timePickerView, long millseconds, boolean choseRightOption);
 }

@@ -24,6 +24,9 @@ public class DefaultConfig {
     public static String DAY = "日";
     public static String HOUR = "时";
     public static String MINUTE = "分";
+    public static String EXPIRATION_OPTIONS_MSG = "Choose an option";
+    public static String EXPIRATION_OPTION_1 = "Option 1";
+    public static String EXPIRATION_OPTION_2 = "Option 2";
 
 
 }

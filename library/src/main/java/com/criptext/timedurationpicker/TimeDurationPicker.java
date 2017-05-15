@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.criptext.timedurationpicker.config.PickerConfig;
@@ -28,6 +29,7 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
     PickerConfig mPickerConfig;
     private TimeWheel mTimeWheel;
     private long mCurrentMillSeconds;
+    private boolean choseRight = false;
 
     private static TimeDurationPicker newInstance(PickerConfig pickerConfig) {
         TimeDurationPicker timePickerDialog = new TimeDurationPicker();
@@ -53,8 +55,8 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
     }
 
     private void initialize(PickerConfig pickerConfig) {
-                                                    mPickerConfig = pickerConfig;
-                                                                                 }
+        mPickerConfig = pickerConfig;
+    }
 
     @NonNull
     @Override
@@ -65,6 +67,31 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(initView());
         return dialog;
+    }
+
+    void initExpirationViews(View view) {
+        TextView expirationMessage = (TextView) view.findViewById(R.id.expiration_options_text);
+        expirationMessage.setText(mPickerConfig.mExpirationMsg);
+        RadioButton op1 = (RadioButton) view.findViewById(R.id.expiration_option_left);
+        op1.setText(mPickerConfig.mExpirationOp1Label);
+        RadioButton op2 = (RadioButton) view.findViewById(R.id.expiration_option_right);
+        op2.setText(mPickerConfig.mExpirationOp2Label);
+
+        op1.toggle();
+        op1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                choseRight = false;
+            }
+        });
+        op2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                choseRight = true;
+            }
+        });
     }
 
     View initView() {
@@ -86,6 +113,7 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
         toolbar.setBackgroundColor(mPickerConfig.mThemeColor);
 
         mTimeWheel = new TimeWheel(view, mPickerConfig);
+        initExpirationViews(view);
         return view;
     }
 
@@ -114,7 +142,7 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
                 mTimeWheel.getCurrentMonth(), mTimeWheel.getCurrentDay(), mTimeWheel.getCurrentHour(),
                 mTimeWheel.getCurrentMinute());
         if (mPickerConfig.mCallBack != null) {
-            mPickerConfig.mCallBack.onDateSet(this, mCurrentMillSeconds);
+            mPickerConfig.mCallBack.onDateSet(this, mCurrentMillSeconds, choseRight);
         }
         dismiss();
     }
@@ -137,6 +165,13 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
 
         public Builder setThemeColor(int color) {
             mPickerConfig.mThemeColor = color;
+            return this;
+        }
+
+        public Builder setExpirationOptionLabels(String msg, String op1, String op2) {
+            mPickerConfig.mExpirationMsg = msg;
+            mPickerConfig.mExpirationOp1Label = op1;
+            mPickerConfig.mExpirationOp2Label = op2;
             return this;
         }
 

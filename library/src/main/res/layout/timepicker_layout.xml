@@ -9,6 +9,9 @@
     <include
         layout="@layout/timepicker_toolbar"/>
 
+    <include
+        layout="@layout/expiration_radio_group"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/picker_dialog_height">
