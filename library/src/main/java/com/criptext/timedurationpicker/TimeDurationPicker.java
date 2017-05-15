@@ -79,18 +79,12 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
 
         op1.toggle();
         op1.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                choseRight = false;
-            }
+            public void onClick(View v) { choseRight = false; }
         });
         op2.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                choseRight = true;
-            }
+            public void onClick(View v) { choseRight = true; }
         });
     }
 
@@ -120,25 +114,16 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.tv_cancel) {
-            dismiss();
-        } else if (i == R.id.tv_sure) {
-            sureClicked();
-        }
+        sureClicked(i == R.id.tv_cancel);
     }
 
     public long getCurrentMillSeconds() {
         return mCurrentMillSeconds;
         }
 
-    /*
-    * @desc This method is called when onClick method is invoked by sure button.
-    * @param none
-    * @return none
-    */
-    void sureClicked() {
+    void sureClicked(boolean cancelled) {
         final TimeDuration timeDuration = new TimeDuration();
-        mCurrentMillSeconds = timeDuration.toMiliseconds(mTimeWheel.getCurrentYear(),
+        mCurrentMillSeconds = cancelled ? 0L : timeDuration.toMiliseconds(mTimeWheel.getCurrentYear(),
                 mTimeWheel.getCurrentMonth(), mTimeWheel.getCurrentDay(), mTimeWheel.getCurrentHour(),
                 mTimeWheel.getCurrentMinute());
         if (mPickerConfig.mCallBack != null) {
@@ -155,8 +140,8 @@ public class TimeDurationPicker extends DialogFragment implements View.OnClickLi
         PickerConfig mPickerConfig;
 
         public Builder() {
-                               mPickerConfig = new PickerConfig();
-                                                                  }
+            mPickerConfig = new PickerConfig();
+        }
 
         public Builder setType(Type type) {
             mPickerConfig.mType = type;
