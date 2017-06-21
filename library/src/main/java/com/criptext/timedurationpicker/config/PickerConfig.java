@@ -38,6 +38,9 @@ public class PickerConfig {
     public String mExpirationOp1Label = DefaultConfig.EXPIRATION_OPTION_1;
     public String mExpirationOp2Label = DefaultConfig.EXPIRATION_OPTION_2;
 
+    public int mCurrentDay = 0;
+    public int mCurrentHour = 0;
+    public int mCurrentMinute = 0;
 
     public int minDay = DefaultConfig.MIN_DAY;
     public int maxDay = DefaultConfig.MAX_DAY;

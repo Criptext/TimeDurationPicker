@@ -39,7 +39,12 @@ public class TimeDurationPicker extends SlideDialogFragment implements View.OnCl
         RadioButton op2 = (RadioButton) view.findViewById(R.id.expiration_option_right);
         op2.setText(mPickerConfig.mExpirationOp2Label);
 
-        op1.toggle();
+        if(choseRight){
+            op2.toggle();
+        }
+        else {
+            op1.toggle();
+        }
         op1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { choseRight = false; }
@@ -97,6 +102,10 @@ public class TimeDurationPicker extends SlideDialogFragment implements View.OnCl
 
     public void setCallBack(OnDateSetListener listener) {
         mPickerConfig.mCallBack = listener;
+    }
+
+    public void setExpirationOnSent() {
+        this.choseRight = true;
     }
 
     public static class Builder {
@@ -178,7 +187,25 @@ public class TimeDurationPicker extends SlideDialogFragment implements View.OnCl
             return this;
         }
 
+        public Builder setCurrentDay(int day) {
+            mPickerConfig.mCurrentDay = day;
+            return this;
+        }
+
+        public Builder setCurrentHour(int hour) {
+            mPickerConfig.mCurrentHour = hour;
+            return this;
+        }
+
+        public Builder setCurrentMinute(int minute) {
+            mPickerConfig.mCurrentMinute = minute;
+            return this;
+        }
+
         public Builder setCurrentMillseconds(long millseconds) {
+            mPickerConfig.mCurrentDay = (int)(millseconds / TimeDuration.daysInMS);
+            mPickerConfig.mCurrentHour = (int)(millseconds / TimeDuration.hoursInMS);
+            mPickerConfig.mCurrentMinute = (int)(millseconds / TimeDuration.minutesInMS);
             mPickerConfig.mCurrentCalendar = new WheelCalendar(millseconds);
             return this;
         }

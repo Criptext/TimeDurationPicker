@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCyclic(false)
                 .setMinMillseconds(System.currentTimeMillis())
                 .setMaxMillseconds(System.currentTimeMillis() + tenYears)
-                .setCurrentMillseconds(System.currentTimeMillis())
+                .setCurrentMillseconds(60000)
                 .setThemeColor(ContextCompat.getColor(this, R.color.timepicker_dialog_bg))
                 .setType(Type.ALL)
                 .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCallBack(this)
                 .setMaxDay(24)
                 .setWheelItemSelectorTextSize(16)
+                .setCurrentMillseconds(60000)
                 .build();
     }
 

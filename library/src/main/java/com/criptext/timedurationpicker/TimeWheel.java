@@ -130,16 +130,19 @@ public class TimeWheel {
 
     void initDay() {
         updateDays();
+        day.setCurrentItem(mPickerConfig.mCurrentDay);
         day.setCyclic(mPickerConfig.cyclic);
     }
 
     void initHour() {
         updateHours();
+        hour.setCurrentItem(mPickerConfig.mCurrentHour);
         hour.setCyclic(mPickerConfig.cyclic);
     }
 
     void initMinute() {
         updateMinutes();
+        minute.setCurrentItem(mPickerConfig.mCurrentMinute);
         minute.setCyclic(mPickerConfig.cyclic);
     }
 
