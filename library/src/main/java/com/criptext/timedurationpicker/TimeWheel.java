@@ -168,8 +168,6 @@ public class TimeWheel {
                 PickerConstants.FORMAT, mPickerConfig.mDay);
         mDayAdapter.setConfig(mPickerConfig);
         day.setViewAdapter(mDayAdapter);
-
-        mPickerConfig.mCurrentDay = getCurrentDay();
     }
 
     void updateHours() {
@@ -183,8 +181,6 @@ public class TimeWheel {
                 PickerConstants.FORMAT, mPickerConfig.mHour);
         mHourAdapter.setConfig(mPickerConfig);
         hour.setViewAdapter(mHourAdapter);
-
-        mPickerConfig.mCurrentHour= getCurrentHour();
     }
 
     void updateMinutes() {
@@ -198,8 +194,6 @@ public class TimeWheel {
                 PickerConstants.FORMAT, mPickerConfig.mMinute);
         mMinuteAdapter.setConfig(mPickerConfig);
         minute.setViewAdapter(mMinuteAdapter);
-
-        mPickerConfig.mCurrentMinute = getCurrentMinute();
     }
 
     public int getCurrentYear() {
