@@ -204,8 +204,8 @@ public class TimeDurationPicker extends SlideDialogFragment implements View.OnCl
 
         public Builder setCurrentMillseconds(long millseconds) {
             mPickerConfig.mCurrentDay = (int)(millseconds / TimeDuration.daysInMS);
-            mPickerConfig.mCurrentHour = (int)(millseconds / TimeDuration.hoursInMS);
-            mPickerConfig.mCurrentMinute = (int)(millseconds / TimeDuration.minutesInMS);
+            mPickerConfig.mCurrentHour = (int)(millseconds / TimeDuration.hoursInMS) % 24;
+            mPickerConfig.mCurrentMinute = (int)(millseconds / TimeDuration.minutesInMS) % 60;
             mPickerConfig.mCurrentCalendar = new WheelCalendar(millseconds);
             return this;
         }
